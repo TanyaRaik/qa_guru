@@ -28,20 +28,24 @@ public class PracticeFormTests {
         String userEmail = "test@test.com";
         String currentAddress = "Test Address";
         String subjectsInput = "Coding";
+        String day = "16";
+        String month = "January";
+        String year = "1992";
+
+
         String dateOfBirth = $("#dateOfBirthInput").getValue();
         String fileName = "Test-JPG.jpg";
 
         //Fill in form fields
-
         $("#firstName").setValue(firstName);
         $("#lastName").setValue(lastName);
         $("#userNumber").setValue(userNumber);
         $("#userEmail").setValue(userEmail);
         $("#currentAddress").setValue(currentAddress);
-        $("#genterWrapper .custom-control-label").click();
-        $("#hobbiesWrapper .custom-control-label").click();
+        $("[for=gender-radio-1]").click();
+        $("[for=hobbies-checkbox-1]").click();
         $("#subjectsInput").setValue(subjectsInput);
-
+ 
         $("#state").click();
         $("#react-select-3-option-0").click();
         String state = $("#state .css-1uccc91-singleValue").getText();
@@ -51,16 +55,20 @@ public class PracticeFormTests {
         String city = $("#city .css-1uccc91-singleValue").getText();
 
         $("#uploadPicture").uploadFile(new File("src/test/resources/"+fileName));
-        $("#submit").click();
 
-        int len = dateOfBirth.length();
-        String newDateOfBirth = dateOfBirth.substring(0,len-5) + ',' + dateOfBirth.substring(len-4, len);
+        $("[id=dateOfBirthInput]").click();
+        $(".react-datepicker__month-select").selectOption(month);
+        $(".react-datepicker__year-select").selectOption(year);
+        $("[aria-label='Choose Thursday, " + month + " " + day + "th, " + year + "']").click();
+
+
+        $("#submit").click();
 
         //Check fields in an opened form
         $(".table-responsive").shouldHave(text(firstName + ' ' + lastName));
         $(".table-responsive").shouldHave(text(userEmail));
         $(".table-responsive").shouldHave(text(userNumber));
-        $(".table-responsive").shouldHave(text(newDateOfBirth));
+        $(".table-responsive").shouldHave(text(day+ ' ' + month + ',' + year));
 //        $(".table-responsive").shouldHave(text(subjectsInput));
         $(".table-responsive").shouldHave(text(fileName));
         $(".table-responsive").shouldHave(text("Sports"));
