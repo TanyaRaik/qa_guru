@@ -50,7 +50,7 @@ public class PracticeFormTests {
         $("#react-select-4-option-0").click();
         String city = $("#city .css-1uccc91-singleValue").getText();
 
-        $("#uploadPicture").uploadFile(new File(fileName));
+        $("#uploadPicture").uploadFile(new File("src/test/resources/"+fileName));
         $("#submit").click();
 
         int len = dateOfBirth.length();
